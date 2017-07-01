@@ -16,6 +16,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".Activity_1"
+            android:label="@layout/activity_1" />
+        <activity
+            android:name=".Activity_2"
+            android:label="@layout/activity_2" />
+
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
+
+    <!-- 전화번호부 permission -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <!-- 전화와 메시지를 보내기 위한 permission-->
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.DIAL_PHONE"/>
+    <!-- 사진 갤러리에서 불러오기 위한 permission -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 </manifest>
