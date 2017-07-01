@@ -1,26 +1,72 @@
 package cs496.project1;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
+
+
 
 public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-    /*
-    public void contacts(View view) {
-        // Create a new Fragment to be placed in the activity layout
-        ContactsFragment firstFragment = new ContactsFragment();
+/*
+        //button 1
+        Button button1 = (Button) findViewById(R.id.button);
+        // 1번, 누르면 버튼 클릭!
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "버튼 클릭!" , Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        // Add the fragment to the 'fragment_container' FrameLayout
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, firstFragment).commit();
+        //button 2
+        Button button2 = (Button) findViewById(R.id.button2);
+
+        button2.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.facebook.com"));
+                startActivity(myIntent);
+            }
+        });
+
+        //button 3
+        Button button3 = (Button) findViewById(R.id.button3);
+
+        button3.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, Activity_1.class);
+                startActivity(intent);
+            }
+        });
+*/
+        Button button4 = (Button) findViewById(R.id.button4);
+
+        button4.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, Activity_2.class);
+                startActivity(intent);
+
+
+            }
+        });
+
+/*
+        Button button5 = (Button) findViewById(R.id.button5);
+
+        button5.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(MainActivity.this, Main2Activity.class);
+                startActivity(intent);
+            }
+        });
+*/
+
+
+
     }
-    */
 }
+
