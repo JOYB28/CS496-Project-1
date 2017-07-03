@@ -1,5 +1,6 @@
 package cs496.project1;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -7,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
 
@@ -18,9 +19,9 @@ public class Activity_2 extends AppCompatActivity {
     //static final City[] cities = {};
 
     //references to our images
-    private Integer[]   mThumbIds = {R.drawable.amsterdam, R.drawable.beijing, R.drawable.istanbul, R.drawable.london
+    /*private Integer[]   mThumbIds = {R.drawable.amsterdam, R.drawable.beijing, R.drawable.istanbul, R.drawable.london
             ,R.drawable.newyork, R.drawable.paris, R.drawable.praha, R.drawable.seoul, R.drawable.rome, R.drawable.tokyo};
-
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +79,8 @@ public class Activity_2 extends AppCompatActivity {
 
 
         //gridView  해보기
-        //setContentView(R.layout.layout_tab_1);
 
+/*
         GridView gridView;
         CityAdapter citiesAdapter;
 
@@ -99,7 +100,7 @@ public class Activity_2 extends AppCompatActivity {
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.rome), "ROME");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.seoul), "SEOUL");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.tokyo), "TOKYO");
-
+*/
 
 
 
@@ -124,6 +125,17 @@ public class Activity_2 extends AppCompatActivity {
         ts3.setContent(R.id.content3);
         ts3.setIndicator("TAB3");
         tabHost1.addTab(ts3);
+
+        //버튼
+        ImageButton button4 = (ImageButton) findViewById(R.id.button);
+
+        button4.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(Activity_2.this, MainGallaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
