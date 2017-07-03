@@ -46,6 +46,7 @@
                 android:layout_weight="1">
 
                 //first page
+
                 <LinearLayout
                     android:id="@+id/content1"
                     android:layout_width="match_parent"
@@ -55,10 +56,11 @@
                     <ListView
                         android:id="@+id/listview2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
                 //Second page
+
                 <LinearLayout
                     android:id="@+id/content2"
                     android:layout_width="match_parent"
@@ -72,14 +74,14 @@
                         android:columnWidth="180dp"
                         android:gravity="center"
                         android:horizontalSpacing="10dp"
-                        android:verticalSpacing="10dp"
-                        android:numColumns="auto_fit"
-                        android:stretchMode="spacingWidth"
-                        />
+                        android:numColumns="2"
+                        android:stretchMode="columnWidth"
+                        android:verticalSpacing="10dp" />
 
                 </LinearLayout>
 
                 //Third page
+
                 <LinearLayout
                     android:id="@+id/content3"
                     android:layout_width="match_parent"
@@ -89,7 +91,7 @@
                     <ListView
                         android:id="@+id/listview1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
             </FrameLayout>

@@ -1,4 +1,4 @@
-package cs496.project1;
+/*package cs496.project1;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -54,7 +54,7 @@ class ContactAdapter extends ArrayAdapter<Contact> {
         return convertView;
     }
 }
-*/
+
 
 public class ContactsFragment extends ListFragment {
 
@@ -85,7 +85,7 @@ public class ContactsFragment extends ListFragment {
         contacts.add(ab);
 
         String[] from = {"name","number"};
-        int[] to = {R.id.name,R.id.number};*/
+        int[] to = {R.id.name,R.id.number};
 
         ArrayAdapter<Contact> adapter = new ArrayAdapter<Contact>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
@@ -117,5 +117,5 @@ public class ContactsFragment extends ListFragment {
         super.onPause();
     }
 }
-
+*/
 

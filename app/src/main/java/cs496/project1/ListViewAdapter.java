@@ -42,6 +42,8 @@ public class ListViewAdapter extends BaseAdapter {
         ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1) ;
         TextView nameTextView = (TextView) convertView.findViewById(R.id.textView1) ;
         TextView numberTextView = (TextView) convertView.findViewById(R.id.textView2) ;
+        TextView number2TextView = (TextView) convertView.findViewById(R.id.textView3);
+        TextView emailTextView = (TextView) convertView.findViewById(R.id.textView4);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
@@ -49,7 +51,9 @@ public class ListViewAdapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
         iconImageView.setImageDrawable(listViewItem.getIcon());
         nameTextView.setText(listViewItem.getName());
-        numberTextView.setText(listViewItem.getNumber());
+        numberTextView.setText(listViewItem.getNumber1());
+        number2TextView.setText(listViewItem.getNumber2());
+        emailTextView.setText(listViewItem.getEmail());
 
         return convertView;
     }
@@ -67,13 +71,14 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수
-    public void addItem(Drawable icon, String name, String number) {
+    public void addItem(Drawable icon, String name, String number, String number2, String email) {
         ListViewItem item = new ListViewItem();
 
         item.setIcon(icon);
         item.setName(name);
-        item.setNumber(number);
-
+        item.setNumber1(number);
+        item.setNumber2(number2);
+        item.setEmail(email);
 
         listViewItemList.add(item);
     }
