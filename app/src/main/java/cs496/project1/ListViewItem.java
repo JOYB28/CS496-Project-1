@@ -10,6 +10,8 @@ public class ListViewItem {
     private Drawable iconDrawable;
     private String nameStr;
     private String numberStr;
+    private String number2Str;
+    private String emailStr;
 
     public void setIcon(Drawable icon){
         iconDrawable = icon;
@@ -17,16 +19,18 @@ public class ListViewItem {
     public void setName(String name){
         nameStr = name;
     }
-    public void setNumber(String number){
+    public void setNumber1(String number){
         numberStr = number;
     }
+    public void setNumber2(String number) { number2Str = number; }
+    public void setEmail(String email) { emailStr = email; }
     public Drawable getIcon(){
         return this.iconDrawable;
     }
     public String getName(){
         return this.nameStr;
     }
-    public String getNumber(){
-        return this.numberStr;
-    }
+    public String getNumber1() { return this.numberStr; }
+    public String getNumber2() { return this.number2Str; }
+    public String getEmail() { return this.emailStr; }
 }
