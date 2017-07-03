@@ -1,9 +1,21 @@
 package cs496.project1;
 
+import android.Manifest;
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,9 +23,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static android.content.Intent.ACTION_EDIT;
+import static cs496.project1.R.id.name;
 
 public class Activity_2 extends AppCompatActivity {
+    // Request code for READ_CONTACTS. It can be any number > 0.
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 1;
+    private static final int PERMISSIONS_REQUEST_CALL_PHONE = 2;
+    private static final int EDIT_CONTACT_REQUEST = 3;
+    String lastsharedsound;
 
     static final String[] LIST_MENU = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N"};
     //static final City[] cities = {};
@@ -44,41 +68,11 @@ public class Activity_2 extends AppCompatActivity {
         listview.setAdapter(adapter);
 
 /////
-        ListView listview2;
-        ListViewAdapter adapter2;
-
-        adapter2 = new ListViewAdapter();
-
-        listview2 = (ListView) findViewById(R.id.listview2);
-        listview2.setAdapter(adapter2);
-
-        //아이템 추가
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "AAA", "010-0000-0000");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "BBB", "010-0000-0000");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "CCC", "010-0000-0000");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "DDD", "010-0000-0000");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "EEE", "010-0000-0000");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "FFF", "010-0000-0000");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "GGG", "010-0000-0000");
-
-
-        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView parent, View v, int position, long id) {
-                // get item
-                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
-
-                String nameStr = item.getName() ;
-                String numberStr = item.getNumber() ;
-                Drawable iconDrawable = item.getIcon() ;
-
-                //해보기
-                //do something with click
-            }
-        });
-
+        //contacts
+        showContacts();
 
         //gridView  해보기
+        //setContentView(R.layout.layout_tab_1);
 
 /*
         GridView gridView;
@@ -138,8 +132,185 @@ public class Activity_2 extends AppCompatActivity {
 
 
     }
+    private void showContacts() {
+        // Check the SDK version and whether the permission is already granted or not.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
+            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        } else {
+            // Android version is lesser than 6.0 or the permission is already granted.
+            ListView listview2;
+            listview2 = (ListView) findViewById(R.id.listview2);
+            ListViewAdapter adapter2 = new ListViewAdapter();
+            listview2.setAdapter(adapter2);
 
+            //ArrayList<String> contactList = new ArrayList<String>();
+            String phoneNumber = null;
+            String email = "Email: N/A";
+            final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
+            String _ID = ContactsContract.Contacts._ID;
+            final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
+            String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
+            Uri PhoneCONTENT_URI = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+            String Phone_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
+            String NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
+            Uri EmailCONTENT_URI = ContactsContract.CommonDataKinds.Email.CONTENT_URI;
+            String EmailCONTACT_ID = ContactsContract.CommonDataKinds.Email.CONTACT_ID;
+            String DATA = ContactsContract.CommonDataKinds.Email.DATA;
+            String TYPE = ContactsContract.CommonDataKinds.Phone.TYPE;
+            //StringBuffer output;
 
+            ContentResolver contentResolver = getContentResolver();
+            Cursor cursor = contentResolver.query(CONTENT_URI, null, null, null, null);
+            // Iterate every contact in the phone
+            if (cursor.getCount() > 0) {
+                while (cursor.moveToNext()) {
+                    String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
+                    String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
+                    int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
+                    if (hasPhoneNumber > 0) {
+                        //output.append("\n First Name:" + name);
+                        ArrayList<String> numbers = new ArrayList<>();
+                        List<Integer> types = new ArrayList<>();
+                        ArrayList<String> stringtypes = new ArrayList<>();
+                        //This is to read multiple phone numbers associated with the same contact
+                        Cursor phoneCursor = contentResolver.query(PhoneCONTENT_URI, null, Phone_CONTACT_ID + " = ?", new String[]{contact_id}, null);
+                        while (phoneCursor.moveToNext()) {
+                            phoneNumber = phoneCursor.getString(phoneCursor.getColumnIndex(NUMBER));
+                            int type = phoneCursor.getInt(phoneCursor.getColumnIndex(TYPE));
+                            String stringType = getResources().getString(ContactsContract.CommonDataKinds.Phone.getTypeLabelResource(type));
+                            //output.append("\n Phone number:" + phoneNumber);
+                            numbers.add(phoneNumber);
+                            types.add(type);
+                            stringtypes.add(stringType);
+                        }
+                        phoneCursor.close();
 
+                        // Read every email id associated with the contact
+                        Cursor emailCursor = contentResolver.query(EmailCONTENT_URI, null, EmailCONTACT_ID + " = ?", new String[]{contact_id}, null);
 
+                        if (emailCursor.getCount() > 0) {
+                            while (emailCursor.moveToNext()) {
+                                email = emailCursor.getString(emailCursor.getColumnIndex(DATA));
+                                //output.append("\n Email:" + email);
+                            }
+                            emailCursor.close();
+                        }
+
+                        if(numbers.size() > 1 && types.get(0) > types.get(1)) {
+                            Collections.swap(numbers, 0, 1);
+                            Collections.swap(stringtypes,0,1);
+                        }
+
+                        if (numbers.size() > 1) {
+                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), stringtypes.get(1) + ": " + numbers.get(1), "Email: "+email);
+                        }
+                        else {
+                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), "Phone No. 2: N/A", email);
+                        }
+                    }
+                        // Add the contact to the ArrayList
+                        //contactList.add(output.toString());
+                }
+            }
+            //아이템 추가
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "AAA", "010-0000-0000", "02-000-0000", "N/A");
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "BBB", "010-0000-0000", "02-000-0000", "N/A");
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "CCC", "010-0000-0000", "02-000-0000", "N/A");
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "DDD", "010-0000-0000", "02-000-0000", "N/A");
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "EEE", "010-0000-0000", "02-000-0000", "N/A");
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "FFF", "010-0000-0000", "02-000-0000", "N/A");
+            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "GGG", "010-0000-0000", "02-000-0000", "N/A");
+
+            listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView parent, View v, int position, long id) {
+                    // get item
+                    ListViewItem item = (ListViewItem) parent.getItemAtPosition(position) ;
+
+                    final String nameStr = item.getName() ;
+                    final String numberStr = item.getNumber1() ;
+                    Drawable iconDrawable = item.getIcon() ;
+
+                    //해보기
+                    //do something with click
+                    new AlertDialog.Builder(findViewById(R.id.listview2).getContext()).setMessage("Edit or call?").setPositiveButton("Call", new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                                requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PERMISSIONS_REQUEST_CALL_PHONE);
+                            }
+                            //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+                            else {
+                                callPhone(numberStr);
+                            }
+                        }
+                    }).setNegativeButton("Edit", new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, final int id) {
+                            /*Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_FILTER_URI,Uri.encode(nameStr));
+                            Cursor contact = getContentResolver().query(uri, new String[] {ContactsContract.PhoneLookup._ID},null,null,null);
+                            contact.moveToNext();
+                            String nid = contact.getString(contact.getColumnIndex((ContactsContract.Contacts._ID)));
+                            Intent editIntent = new Intent(Intent.ACTION_EDIT);
+                            editIntent.setDataAndType(Uri.parse(ContactsContract.Contacts.CONTENT_LOOKUP_URI + "/" + nid), ContactsContract.Contacts.CONTENT_ITEM_TYPE);
+                            startActivity(editIntent);*/
+                            Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
+                            Cursor cursor = getContentResolver().query(uri, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
+                            cursor.moveToNext();
+                            long idContact = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
+                            Intent i = new Intent(Intent.ACTION_EDIT);
+                            Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, idContact);
+                            i.setData(contactUri);
+                            i.putExtra("finishActivityOnSaveCompleted", true);
+                            startActivityForResult(i, EDIT_CONTACT_REQUEST);
+                        }
+                    }).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data) {
+        if (requestCode == EDIT_CONTACT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                showContacts();
+            }
+        }
+    }
+
+    private void callPhone(String numberStr) {
+        lastsharedsound = numberStr;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PERMISSIONS_REQUEST_CALL_PHONE);
+        }
+        //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        else {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + numberStr));
+            startActivity(callIntent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case  PERMISSIONS_REQUEST_READ_CONTACTS: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted
+                    showContacts();
+                } else {
+                    Toast.makeText(this, "Names need permission to be displayed.", Toast.LENGTH_SHORT).show();
+                }
+        }
+            case PERMISSIONS_REQUEST_CALL_PHONE: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted
+                    callPhone(lastsharedsound);
+                } else {
+                    Toast.makeText(this, "Numbers need permission to be called.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 }
