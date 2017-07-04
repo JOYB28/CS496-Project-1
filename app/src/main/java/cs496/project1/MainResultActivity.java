@@ -17,16 +17,16 @@ public class MainResultActivity extends AppCompatActivity {
         ListView2Adapter adapter2 = new ListView2Adapter();
         listview2.setAdapter(adapter2);
 
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "1", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "2", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "3", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "4", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "5", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "6", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "7", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "8", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "9", "너가 쓴거", "정답");
-        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "10", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "1","이름", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "2","이름", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "3","이름", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "4","이름", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "5", "이름","너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "6","이름", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "7", "이름","너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "8","이름", "너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "9", "이름","너가 쓴거", "정답");
+        adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "10","이름", "너가 쓴거", "정답");
 
 
 

@@ -46,8 +46,9 @@ public class ListView2Adapter extends BaseAdapter {
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1) ;
         TextView number = (TextView) convertView.findViewById(R.id.textView1) ;
-        TextView youranswer = (TextView) convertView.findViewById(R.id.textView2) ;
-        TextView answer = (TextView) convertView.findViewById(R.id.textView3);
+        TextView name = (TextView) convertView.findViewById(R.id.textView2);
+        TextView youranswer = (TextView) convertView.findViewById(R.id.textView3) ;
+        TextView answer = (TextView) convertView.findViewById(R.id.textView4);
 
         // Data Set(listViewItem2List)에서 position에 위치한 데이터 참조 획득
         ListView2Item listView2Item = listViewItem2List.get(position);
@@ -55,6 +56,7 @@ public class ListView2Adapter extends BaseAdapter {
         // 아이템 내 각 위젯에 데이터 반영
         iconImageView.setImageDrawable(listView2Item.getIcon());
         number.setText(listView2Item.getNumber());
+        name.setText(listView2Item.getName());
         youranswer.setText(listView2Item.getYouranswer());
         answer.setText(listView2Item.getAnswer());
 
@@ -74,13 +76,15 @@ public class ListView2Adapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수
-    public void addItem(Drawable icon, String number, String youranswer, String answer) {
+    public void addItem(Drawable icon, String number,String name,  String youranswer, String answer) {
         ListView2Item item = new ListView2Item();
 
         item.setIcon(icon);
         item.setNumber(number);
+        item.setName(name);
         item.setYouranswer(youranswer);
         item.setAnswer(answer);
+
 
         listViewItem2List.add(item);
     }
