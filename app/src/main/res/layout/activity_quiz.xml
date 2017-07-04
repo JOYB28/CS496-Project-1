@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="30dp"
-            android:text="question"
             android:layout_marginTop="30dp"/>
 
         <TextView
@@ -29,8 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="30dp"
-            android:layout_marginTop="30dp"
-            android:text="name"/>
+            android:layout_marginTop="30dp" />
 
 
         <GridView
