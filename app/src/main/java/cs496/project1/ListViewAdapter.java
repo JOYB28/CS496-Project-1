@@ -44,6 +44,7 @@ public class ListViewAdapter extends BaseAdapter {
         TextView numberTextView = (TextView) convertView.findViewById(R.id.textView2) ;
         TextView number2TextView = (TextView) convertView.findViewById(R.id.textView3);
         TextView emailTextView = (TextView) convertView.findViewById(R.id.textView4);
+        TextView addTextView = (TextView) convertView.findViewById(R.id.textView5);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
@@ -54,6 +55,7 @@ public class ListViewAdapter extends BaseAdapter {
         numberTextView.setText(listViewItem.getNumber1());
         number2TextView.setText(listViewItem.getNumber2());
         emailTextView.setText(listViewItem.getEmail());
+        addTextView.setText(listViewItem.getAdd());
 
         return convertView;
     }
@@ -71,7 +73,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수
-    public void addItem(Drawable icon, String name, String number, String number2, String email) {
+    public void addItem(Drawable icon, String name, String number, String number2, String email, String add) {
         ListViewItem item = new ListViewItem();
 
         item.setIcon(icon);
@@ -79,6 +81,7 @@ public class ListViewAdapter extends BaseAdapter {
         item.setNumber1(number);
         item.setNumber2(number2);
         item.setEmail(email);
+        item.setAdd(add);
 
         listViewItemList.add(item);
     }

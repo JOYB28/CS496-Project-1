@@ -12,6 +12,7 @@ public class ListViewItem {
     private String numberStr;
     private String number2Str;
     private String emailStr;
+    private String addStr;
 
     public void setIcon(Drawable icon){
         iconDrawable = icon;
@@ -24,6 +25,7 @@ public class ListViewItem {
     }
     public void setNumber2(String number) { number2Str = number; }
     public void setEmail(String email) { emailStr = email; }
+    public void setAdd(String add) { addStr = add; }
     public Drawable getIcon(){
         return this.iconDrawable;
     }
@@ -33,4 +35,5 @@ public class ListViewItem {
     public String getNumber1() { return this.numberStr; }
     public String getNumber2() { return this.number2Str; }
     public String getEmail() { return this.emailStr; }
+    public String getAdd() { return this.addStr; }
 }

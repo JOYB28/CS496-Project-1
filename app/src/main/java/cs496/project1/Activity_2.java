@@ -7,13 +7,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -28,9 +26,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static android.content.Intent.ACTION_EDIT;
-import static cs496.project1.R.id.name;
 
 public class Activity_2 extends AppCompatActivity {
     // Request code for READ_CONTACTS. It can be any number > 0.
@@ -96,8 +91,6 @@ public class Activity_2 extends AppCompatActivity {
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.tokyo), "TOKYO");
 */
 
-
-
         //tab 구현
         TabHost tabHost1 = (TabHost) findViewById(R.id.tabHost1);
         tabHost1.setup();
@@ -145,7 +138,7 @@ public class Activity_2 extends AppCompatActivity {
             listview2.setAdapter(adapter2);
 
             //ArrayList<String> contactList = new ArrayList<String>();
-            String phoneNumber = null;
+            String phoneNumber;
             String email = "Email: N/A";
             final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
             String _ID = ContactsContract.Contacts._ID;
@@ -161,11 +154,13 @@ public class Activity_2 extends AppCompatActivity {
             //StringBuffer output;
 
             ContentResolver contentResolver = getContentResolver();
-            Cursor cursor = contentResolver.query(CONTENT_URI, null, null, null, null);
+            String sortOrder = DISPLAY_NAME + " COLLATE LOCALIZED ASC";
+            Cursor cursor = contentResolver.query(CONTENT_URI, null, null, null, sortOrder);
             // Iterate every contact in the phone
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
+                    String address = "Address: N/A";
                     String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
                     int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
                     if (hasPhoneNumber > 0) {
@@ -197,30 +192,31 @@ public class Activity_2 extends AppCompatActivity {
                             emailCursor.close();
                         }
 
+                        //Address?
+                        Cursor addressCursor = contentResolver.query(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_URI, null, ContactsContract.Data.CONTACT_ID + "= ?",new String[]{contact_id},null);
+                        if (addressCursor.getCount() > 0) {
+                            addressCursor.moveToNext();
+                            address = addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
+                        }
+
                         if(numbers.size() > 1 && types.get(0) > types.get(1)) {
                             Collections.swap(numbers, 0, 1);
                             Collections.swap(stringtypes,0,1);
                         }
 
                         if (numbers.size() > 1) {
-                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), stringtypes.get(1) + ": " + numbers.get(1), "Email: "+email);
+                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), stringtypes.get(1) + ": " + numbers.get(1), "Email: "+email, "Address: " + address);
                         }
                         else {
-                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), "Phone No. 2: N/A", email);
+                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), "Phone No. 2: N/A", email, "Address: " + address);
                         }
                     }
                         // Add the contact to the ArrayList
                         //contactList.add(output.toString());
                 }
             }
+            cursor.close();
             //아이템 추가
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "AAA", "010-0000-0000", "02-000-0000", "N/A");
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "BBB", "010-0000-0000", "02-000-0000", "N/A");
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "CCC", "010-0000-0000", "02-000-0000", "N/A");
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "DDD", "010-0000-0000", "02-000-0000", "N/A");
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "EEE", "010-0000-0000", "02-000-0000", "N/A");
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "FFF", "010-0000-0000", "02-000-0000", "N/A");
-            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "GGG", "010-0000-0000", "02-000-0000", "N/A");
 
             listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
@@ -254,7 +250,7 @@ public class Activity_2 extends AppCompatActivity {
                             editIntent.setDataAndType(Uri.parse(ContactsContract.Contacts.CONTENT_LOOKUP_URI + "/" + nid), ContactsContract.Contacts.CONTENT_ITEM_TYPE);
                             startActivity(editIntent);*/
                             Uri uri = ContactsContract.CommonDataKinds.Phone.CONTENT_URI;
-                            Cursor cursor = getContentResolver().query(uri, null, null, null, ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
+                            Cursor cursor = getContentResolver().query(uri, null, ContactsContract.Contacts.DISPLAY_NAME + " = ?", new String[]{nameStr}, null);
                             cursor.moveToNext();
                             long idContact = cursor.getLong(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID));
                             Intent i = new Intent(Intent.ACTION_EDIT);
@@ -283,7 +279,7 @@ public class Activity_2 extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PERMISSIONS_REQUEST_CALL_PHONE);
         }
-        //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
+        //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overridden method
         else {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setData(Uri.parse("tel:" + numberStr));
