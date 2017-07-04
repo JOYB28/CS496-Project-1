@@ -55,6 +55,17 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <Button
+                        android:id="@+id/addbutton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Create New / Edit Existing" />
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="8dp">
+                    </View>
+
                     <ListView
                         android:id="@+id/listview2"
                         android:layout_width="match_parent"

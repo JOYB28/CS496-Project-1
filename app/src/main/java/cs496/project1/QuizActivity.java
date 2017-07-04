@@ -136,7 +136,7 @@ public class QuizActivity extends AppCompatActivity {
         TextView nameTextView = (TextView) findViewById(R.id.name);
         nameTextView.setText(actualProblems[problemCounter].getName());
         if (quizproblemlength < 10) {
-            String message = "Not enough friends to play... (at least 10)";
+            String message = "Not enough friends to play...\n(at least 10)";
             nameTextView.setText(message);
             return;
         }

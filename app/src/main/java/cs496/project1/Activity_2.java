@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -17,6 +18,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -41,13 +43,20 @@ public class Activity_2 extends AppCompatActivity {
             ,R.drawable.newyork, R.drawable.paris, R.drawable.praha, R.drawable.seoul, R.drawable.rome, R.drawable.tokyo};
     */
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
 
+        //ListView listview2 = (ListView) findViewById(R.id.listview2);
+        //ListViewAdapter adapter2 = new ListViewAdapter();
+        //listview2.setAdapter(adapter2);
+
+        //ArrayList<String> contactList = new ArrayList<String>();
         //contacts
-        showContacts();
+        new ContactsLoading().execute();
 
         //tab 구현
         TabHost tabHost1 = (TabHost) findViewById(R.id.tabHost1);
@@ -92,23 +101,36 @@ public class Activity_2 extends AppCompatActivity {
             }
         });
 
+        //contacts add button
+        Button addbutton = (Button) findViewById(R.id.addbutton);
+        addbutton.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intentInsert = new Intent(Intent.ACTION_INSERT_OR_EDIT);
+                intentInsert.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);
+                intentInsert.putExtra("finishActivityOnSaveCompleted", true);
+                startActivityForResult(intentInsert, EDIT_CONTACT_REQUEST);
+            }
+        });
+
 
     }
-    private void showContacts() {
+    private ListViewAdapter showContacts() {
+        ListViewAdapter adapter2 = new ListViewAdapter();
         // Check the SDK version and whether the permission is already granted or not.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_READ_CONTACTS);
             //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overriden method
-        } else {
+        }
+        else {
             // Android version is lesser than 6.0 or the permission is already granted.
-            ListView listview2;
-            listview2 = (ListView) findViewById(R.id.listview2);
-            ListViewAdapter adapter2 = new ListViewAdapter();
-            listview2.setAdapter(adapter2);
+            //ListView listview2;
+            //listview2 = (ListView) findViewById(R.id.listview2);
+            //ListViewAdapter adapter2 = new ListViewAdapter();
+            //listview2.setAdapter(adapter2);
 
             //ArrayList<String> contactList = new ArrayList<String>();
             String phoneNumber;
-            String email = "Email: N/A";
+            String email = "N/A";
             final Uri CONTENT_URI = ContactsContract.Contacts.CONTENT_URI;
             String _ID = ContactsContract.Contacts._ID;
             final String DISPLAY_NAME = ContactsContract.Contacts.DISPLAY_NAME;
@@ -129,7 +151,7 @@ public class Activity_2 extends AppCompatActivity {
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
                     String contact_id = cursor.getString(cursor.getColumnIndex(_ID));
-                    String address = "Address: N/A";
+                    String address = "N/A";
                     String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
                     int hasPhoneNumber = Integer.parseInt(cursor.getString(cursor.getColumnIndex(HAS_PHONE_NUMBER)));
                     if (hasPhoneNumber > 0) {
@@ -158,8 +180,8 @@ public class Activity_2 extends AppCompatActivity {
                                 email = emailCursor.getString(emailCursor.getColumnIndex(DATA));
                                 //output.append("\n Email:" + email);
                             }
-                            emailCursor.close();
                         }
+                        emailCursor.close();
 
                         //Address?
                         Cursor addressCursor = contentResolver.query(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_URI, null, ContactsContract.Data.CONTACT_ID + "= ?",new String[]{contact_id},null);
@@ -178,7 +200,7 @@ public class Activity_2 extends AppCompatActivity {
                             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), stringtypes.get(1) + ": " + numbers.get(1), "Email: "+email, "Address: " + address);
                         }
                         else {
-                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), "Phone No. 2: N/A", email, "Address: " + address);
+                            adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), name, stringtypes.get(0) + ": " + numbers.get(0), "Phone No. 2: N/A", "Email: " + email, "Address: " + address);
                         }
                     }
                         // Add the contact to the ArrayList
@@ -187,9 +209,67 @@ public class Activity_2 extends AppCompatActivity {
             }
             cursor.close();
             //아이템 추가
+        }
+        return adapter2;
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, Intent data) {
+        if (requestCode == EDIT_CONTACT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                new ContactsLoading().execute();
+            }
+        }
+    }
 
-            listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    private void callPhone(String numberStr) {
+        lastsharedsound = numberStr;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PERMISSIONS_REQUEST_CALL_PHONE);
+        }
+        //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overridden method
+        else {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:" + numberStr));
+            startActivity(callIntent);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case  PERMISSIONS_REQUEST_READ_CONTACTS: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted
+                    new ContactsLoading().execute();
+                } else {
+                    Toast.makeText(this, "Names need permission to be displayed.", Toast.LENGTH_SHORT).show();
+                }
+        }
+            case PERMISSIONS_REQUEST_CALL_PHONE: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission is granted
+                    if (lastsharedsound != null) {
+                        callPhone(lastsharedsound);
+                    }
+                } else {
+                    Toast.makeText(this, "Numbers need permission to be called.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private class ContactsLoading extends AsyncTask<Void, Void, ListViewAdapter> {
+
+        protected ListViewAdapter doInBackground(Void... params) {
+            return showContacts();
+        }
+
+        protected void onPostExecute(ListViewAdapter adapter) {
+            final ListView lv1 = (ListView) findViewById(R.id.listview2);
+            lv1.setAdapter(adapter);
+            lv1.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView parent, View v, int position, long id) {
                     // get item
@@ -228,56 +308,12 @@ public class Activity_2 extends AppCompatActivity {
                             Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, idContact);
                             i.setData(contactUri);
                             i.putExtra("finishActivityOnSaveCompleted", true);
+                            cursor.close();
                             startActivityForResult(i, EDIT_CONTACT_REQUEST);
                         }
                     }).show();
                 }
             });
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data) {
-        if (requestCode == EDIT_CONTACT_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                showContacts();
-            }
-        }
-    }
-
-    private void callPhone(String numberStr) {
-        lastsharedsound = numberStr;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CALL_PHONE}, PERMISSIONS_REQUEST_CALL_PHONE);
-        }
-        //After this point you wait for callback in onRequestPermissionsResult(int, String[], int[]) overridden method
-        else {
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + numberStr));
-            startActivity(callIntent);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
-        switch (requestCode) {
-            case  PERMISSIONS_REQUEST_READ_CONTACTS: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission is granted
-                    showContacts();
-                } else {
-                    Toast.makeText(this, "Names need permission to be displayed.", Toast.LENGTH_SHORT).show();
-                }
-        }
-            case PERMISSIONS_REQUEST_CALL_PHONE: {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission is granted
-                    callPhone(lastsharedsound);
-                } else {
-                    Toast.makeText(this, "Numbers need permission to be called.", Toast.LENGTH_SHORT).show();
-                }
-            }
         }
     }
 }

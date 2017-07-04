@@ -48,8 +48,9 @@
             android:name=".MainGallaryActivity"
             android:label="@string/title_activity_main_gallary"
             android:theme="@style/AppTheme"></activity>
-        <activity android:name=".QuizActivity"></activity>
-        <activity android:name=".MainResultActivity"></activity>
+        <activity android:name=".QuizActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize">
+        </activity>
 
     </application>
 
