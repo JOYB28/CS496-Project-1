@@ -52,14 +52,29 @@ public class City2Adapter extends BaseAdapter {
         ImageView cityImageView = (ImageView) convertView.findViewById(R.id.image_city);
         TextView nameTextView = (TextView) convertView.findViewById(R.id.text_name);
 
+
         //data set(cities)에서 포지션에 위치한 데이터 참조 획득
         City data = cities.get(position);
 
         cityImageView.setImageDrawable(data.getImage());
         nameTextView.setText(data.getName());
 
+        /*
+        data.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(context, "" + position, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        */
+
         return convertView;
     }
+    /*
+    public void onClick(View v){
+        Intent intent = new Intent(, )
+    }
+    */
 
     public void addItem(Drawable image, String name){
         City city = new City();
