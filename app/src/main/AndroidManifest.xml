@@ -15,9 +15,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/globalfriends"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/globalfriends_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
@@ -46,14 +46,9 @@
         <activity
             android:name=".MainGallaryActivity"
             android:label="@string/title_activity_main_gallary"
-            android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".MainGameActivity"></activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".MainGameActivity" />
+        <activity android:name=".MainResultActivity"></activity>
     </application>
 
 </manifest>

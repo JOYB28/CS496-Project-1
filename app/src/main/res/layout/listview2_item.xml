@@ -14,7 +14,8 @@
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/constraintLayout2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="8dp" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="267dp"
@@ -24,14 +25,13 @@
         android:id="@+id/constraintLayout2"
         app:layout_constraintLeft_toRightOf="@+id/imageView1"
         android:layout_marginTop="8dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginLeft="8dp">
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp">
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="0dp"
             android:layout_height="32dp"
-            android:layout_marginTop="-12dp"
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
             android:text="Namey"
@@ -74,9 +74,8 @@
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
             android:text="Email"

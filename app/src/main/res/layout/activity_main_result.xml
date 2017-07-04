@@ -4,47 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cs496.project1.MainGameActivity">
-
+    tools:context="cs496.project1.MainResultActivity"
+    >
     <LinearLayout
-        android:id="@+id/content2"
+        android:id="@+id/content1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center"
         tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="30dp"
-            android:text="question"
-            android:layout_marginTop="30dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="30dp"
+            android:text="Result"
+            android:textSize="40dp"
+            android:textColor="#1F2124"
             android:layout_marginTop="30dp"
-            android:text="name"/>
+            android:layout_gravity="center_horizontal"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10/10"
+            android:textSize="40dp"
+            android:textColor="#1F2124"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp" />
 
-
-        <GridView
-            android:id="@+id/gridview"
+        <ListView
+            android:layout_marginTop="30dp"
+            android:id="@+id/listview2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="170dp"
-            android:layout_marginTop="130dp"
-
-            android:gravity="center"
-            android:horizontalSpacing="10dp"
-            android:numColumns="2"
-            android:scaleType="fitXY"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
-
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="8dp" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
