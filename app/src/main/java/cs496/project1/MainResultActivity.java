@@ -33,7 +33,7 @@ public class MainResultActivity extends AppCompatActivity {
             else {
                 d = ContextCompat.getDrawable(this, R.drawable.wrong);
             }
-            adapter2.addItem(d, extras.getString("problem "+(i+1)+ "name"), Integer.toString(i+1), extras.getString("problem"+(i+1)+"sel"), extras.getString("problem"+(i+1)+"right"));
+            adapter2.addItem(d, Integer.toString(i+1), extras.getString("problem "+(i+1)+ "name"),  extras.getString("problem"+(i+1)+"sel"), extras.getString("problem"+(i+1)+"right"));
         }
 
     }
