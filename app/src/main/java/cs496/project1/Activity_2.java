@@ -17,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -57,10 +56,12 @@ public class Activity_2 extends AppCompatActivity {
         });*/
 
 //////
+        /*
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, LIST_MENU);
 
         ListView listview = (ListView) findViewById(R.id.listview1);
         listview.setAdapter(adapter);
+        */
 
 /////
         //contacts
@@ -105,6 +106,7 @@ public class Activity_2 extends AppCompatActivity {
         TabHost.TabSpec ts2 = tabHost1.newTabSpec("Tab Spec 2");
         ts2.setContent(R.id.content2);
         ts2.setIndicator("TAB2");
+
         tabHost1.addTab(ts2);
 
 
@@ -119,6 +121,16 @@ public class Activity_2 extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(Activity_2.this, MainGallaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //tab3 시작화면
+        ImageButton button5 = (ImageButton) findViewById(R.id.button2);
+
+        button5.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(Activity_2.this, MainGameActivity.class);
                 startActivity(intent);
             }
         });
@@ -217,6 +229,7 @@ public class Activity_2 extends AppCompatActivity {
             }
             cursor.close();
             //아이템 추가
+
 
             listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override

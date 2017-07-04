@@ -2,9 +2,9 @@ package cs496.project1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
 
 
@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 */
+        /*
         Button button4 = (Button) findViewById(R.id.button4);
 
         button4.setOnClickListener(new View.OnClickListener(){
@@ -51,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        */
+
+        Handler handler = new Handler(){
+            public void handleMessage(Message msg){
+                super.handleMessage(msg);
+                startActivity(new Intent(MainActivity.this,Activity_2.class));
+                finish();
+            }
+        };
+        handler.sendEmptyMessageDelayed(0,1000);
 
 /*
         Button button5 = (Button) findViewById(R.id.button5);
