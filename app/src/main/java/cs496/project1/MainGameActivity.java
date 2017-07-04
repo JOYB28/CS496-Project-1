@@ -36,7 +36,7 @@ public class MainGameActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 //Toast.makeText(getApplicationContext(), "FFFF"+position, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), Activity_2.class);
+                Intent intent = new Intent(getApplicationContext(), MainResultActivity.class);
                 startActivity(intent);
             }
 
