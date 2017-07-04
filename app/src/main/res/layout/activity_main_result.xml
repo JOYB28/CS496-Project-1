@@ -8,12 +8,12 @@
     >
     <LinearLayout
         android:id="@+id/content1"
-        android:layout_width="368dp"
-        android:layout_height="551dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp">
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,25 +30,25 @@
             android:id="@+id/score"
             android:textSize="40dp"
             android:textColor="#1F2124"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp" />
 
         <TextView
-            android:layout_width="259dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="#    Name         Your answer    Correct answer"
+            android:text="           #            Name             Your answer      Correct answer"
             android:textSize="12dp"
             android:textColor="#1F2124"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:layout_gravity="center_horizontal"
             android:textStyle="bold"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp" />
 
         <ListView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="8dp"
             android:id="@+id/listview2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

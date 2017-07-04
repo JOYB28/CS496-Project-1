@@ -1,15 +1,14 @@
 package cs496.project1;
 
 import android.content.ContentResolver;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -132,15 +131,18 @@ public class QuizActivity extends AppCompatActivity {
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(citiesAdapter);
 
-        TextView questionTextView = (TextView) findViewById(R.id.question);
+        TextView question = (TextView) findViewById(R.id.question);
+        TextView questionTextView = (TextView) findViewById(R.id.question_word);
         TextView nameTextView = (TextView) findViewById(R.id.name);
-        nameTextView.setText(actualProblems[problemCounter].getName());
+
         if (quizproblemlength < 10) {
             String message = "Not enough friends to play... (at least 10)";
             nameTextView.setText(message);
             return;
         }
-        questionTextView.setText("Question " + (problemCounter + 1)  + ": " + "Where does this person live?");
+        nameTextView.setText(actualProblems[problemCounter].getName());
+        question.setText("Question " + (problemCounter + 1));
+        questionTextView.setText("Where does this person live?");
 
         //add information to adapter
         Resources res = getResources();
