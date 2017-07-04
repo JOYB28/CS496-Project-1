@@ -8,16 +8,16 @@
     >
     <LinearLayout
         android:id="@+id/content1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="384dp"
+        android:layout_height="567dp"
         android:orientation="vertical"
         android:gravity="center"
-        tools:layout_editor_absoluteY="8dp"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Result"
+            android:text="Results"
             android:textSize="40dp"
             android:textColor="#1F2124"
             android:layout_marginTop="30dp"
@@ -27,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10/10"
+            android:id="@+id/score"
             android:textSize="40dp"
             android:textColor="#1F2124"
             android:layout_marginTop="30dp"

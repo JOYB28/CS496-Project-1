@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class MainResultActivity extends AppCompatActivity {
 
@@ -19,6 +20,9 @@ public class MainResultActivity extends AppCompatActivity {
         listview2 = (ListView) findViewById(R.id.listview2);
         ListView2Adapter adapter2 = new ListView2Adapter();
         listview2.setAdapter(adapter2);
+
+        TextView scoreTextView = (TextView) findViewById(R.id.score);
+        String score = "";
 
         Drawable d;
 

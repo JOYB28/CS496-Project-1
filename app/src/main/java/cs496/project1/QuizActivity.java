@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -198,14 +200,36 @@ public class QuizActivity extends AppCompatActivity {
                 problem.setSelectedAnswer(name);
 
                 if (problemCounter == 10) {
-                    Intent i = new Intent(QuizActivity.this, MainResultActivity.class);
+                    /*Intent i = new Intent(QuizActivity.this, MainResultActivity.class);
                     for (int j = 0; j<10; j++) {
                         i.putExtra("problem"+(j+1)+"correct", actualProblems[j].getCorrect());
                         i.putExtra("problem"+(j+1)+"sel", actualProblems[j].getSelectedAnswer());
                         i.putExtra("problem"+(j+1)+"right", actualProblems[j].getRightAnswer());
                         i.putExtra("problem"+(j+1)+"name", actualProblems[j].getName());
                     }
-                    startActivity(i);
+                    startActivity(i);*/
+                    setContentView(R.layout.activity_main_result);
+
+                    ListView listview2;
+                    listview2 = (ListView) findViewById(R.id.listview2);
+                    ListView2Adapter adapter2 = new ListView2Adapter();
+                    listview2.setAdapter(adapter2);
+
+                    TextView scoreTextView = (TextView) findViewById(R.id.score);
+                    String scoreStr = score + "/10";
+                    scoreTextView.setText(scoreStr);
+
+                    Drawable d;
+
+                    for (int i = 0; i<10; i++) {
+                        if (actualProblems[i].getCorrect()) {
+                            d = ContextCompat.getDrawable(QuizActivity.this, R.drawable.right);
+                        }
+                        else {
+                            d = ContextCompat.getDrawable(QuizActivity.this, R.drawable.wrong);
+                        }
+                        adapter2.addItem(d, actualProblems[i].getName(), Integer.toString(i+1), actualProblems[i].getSelectedAnswer(), actualProblems[i].getRightAnswer());
+                    }
                 }
                 else{
                     showQuiz();
