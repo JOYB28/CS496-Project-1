@@ -7,19 +7,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -28,9 +25,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static android.content.Intent.ACTION_EDIT;
-import static cs496.project1.R.id.name;
 
 public class Activity_2 extends AppCompatActivity {
     // Request code for READ_CONTACTS. It can be any number > 0.
@@ -62,10 +56,12 @@ public class Activity_2 extends AppCompatActivity {
         });*/
 
 //////
+        /*
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, LIST_MENU);
 
         ListView listview = (ListView) findViewById(R.id.listview1);
         listview.setAdapter(adapter);
+        */
 
 /////
         //contacts
@@ -112,6 +108,7 @@ public class Activity_2 extends AppCompatActivity {
         TabHost.TabSpec ts2 = tabHost1.newTabSpec("Tab Spec 2");
         ts2.setContent(R.id.content2);
         ts2.setIndicator("TAB2");
+
         tabHost1.addTab(ts2);
 
 
@@ -126,6 +123,16 @@ public class Activity_2 extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent intent = new Intent(Activity_2.this, MainGallaryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //tab3 시작화면
+        ImageButton button5 = (ImageButton) findViewById(R.id.button2);
+
+        button5.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(Activity_2.this, MainGameActivity.class);
                 startActivity(intent);
             }
         });
@@ -214,6 +221,7 @@ public class Activity_2 extends AppCompatActivity {
                 }
             }
             //아이템 추가
+
             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "AAA", "010-0000-0000", "02-000-0000", "N/A");
             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "BBB", "010-0000-0000", "02-000-0000", "N/A");
             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.female), "CCC", "010-0000-0000", "02-000-0000", "N/A");
@@ -221,6 +229,7 @@ public class Activity_2 extends AppCompatActivity {
             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "EEE", "010-0000-0000", "02-000-0000", "N/A");
             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "FFF", "010-0000-0000", "02-000-0000", "N/A");
             adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.male), "GGG", "010-0000-0000", "02-000-0000", "N/A");
+
 
             listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                 @Override

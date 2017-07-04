@@ -32,12 +32,14 @@
         android:id="@+id/tabHost1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="0dp"
        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -110,11 +112,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="416dp"
+                        android:layout_height="240dp"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/worldfriends"
+                        />
 
-                    <ListView
-                        android:id="@+id/listview1"
+                    <TextView
+                        android:layout_marginTop="30dp"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="match_parent"
+                        android:textSize="40dp"
+                        android:gravity="center_horizontal"
+                        android:textColor="#000000"
+                        android:typeface="normal"
+                        android:text="World Friends Quiz"/>
+
+                    <ImageButton
+                        android:id="@+id/button2"
+                        android:layout_width="130dp"
+                        android:padding="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:focusableInTouchMode="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+
+                        android:src="@drawable/gamestart_states"/>
 
                 </LinearLayout>
             </FrameLayout>
@@ -124,7 +150,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:layout_marginBottom="0dp"/>
+                android:layout_marginBottom="0dp"
+                android:background="#ffffff"
+                />
 
 
 

@@ -9,9 +9,9 @@
 
         <ImageView
             android:id="@+id/image_city"
-            android:layout_width="480dp"
-            android:layout_height="320dp"
-            android:scaleType="fitCenter"
+            android:layout_width="450dp"
+            android:layout_height="270dp"
+            android:scaleType="centerCrop"
             />
         <TextView
             android:id="@+id/text_name"
