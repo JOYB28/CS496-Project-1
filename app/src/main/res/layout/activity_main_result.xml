@@ -8,8 +8,8 @@
     >
     <LinearLayout
         android:id="@+id/content1"
-        android:layout_width="384dp"
-        android:layout_height="567dp"
+        android:layout_width="368dp"
+        android:layout_height="551dp"
         android:orientation="vertical"
         android:gravity="center"
         tools:layout_editor_absoluteY="0dp"
@@ -35,8 +35,20 @@
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp" />
 
-        <ListView
+        <TextView
+            android:layout_width="259dp"
+            android:layout_height="wrap_content"
+            android:text="#    Name         Your answer    Correct answer"
+            android:textSize="12dp"
+            android:textColor="#1F2124"
             android:layout_marginTop="30dp"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteY="0dp"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ListView
+            android:layout_marginTop="5dp"
             android:id="@+id/listview2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
