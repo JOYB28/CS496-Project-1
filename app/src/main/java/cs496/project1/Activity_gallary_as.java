@@ -1,8 +1,12 @@
 package cs496.project1;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 /**
@@ -33,12 +37,14 @@ public class Activity_gallary_as extends Activity {
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.turkey), "Turkey");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.uae), "UAE");
 
-
-
-
-
-
-
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                City a = (City)adapterView.getAdapter().getItem(i);
+                String name = a.getName();
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.co.kr/search?q="+name)));
+            }
+        });
 
     }
 }
