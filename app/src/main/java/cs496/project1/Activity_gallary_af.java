@@ -27,7 +27,7 @@ public class Activity_gallary_af extends Activity {
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.ethiopia), "Ethiopia");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.egypt), "Egypt");
 
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.rsa), "Republic of South Africa");
+        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.southafrica), "Republic of South Africa");
 
     }
 

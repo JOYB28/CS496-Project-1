@@ -1,6 +1,7 @@
 package cs496.project1;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -25,6 +26,7 @@ public class QuizActivity extends AppCompatActivity {
     int score = 0;
     int problemCounter = 0;
     QuizProblem actualProblems[] = new QuizProblem[10];
+    int quizproblemlength = 0;
     String[] countries = {"Canada", "United States", "Greenland", "Argentina", "Bolivia", "Brazil", "Chile", "Peru", "Czech", "France", "Greece", "Italy", "Netherlands", "United Kingdom", "Algeria", "Ethiopia",
             "Egypt", "South Africa", "China", "Hong Kong", "Japan", "Russia", "South Korea", "Thailand", "Turkey", "UAE", "Australia", "Fiji"};
 
@@ -82,6 +84,7 @@ public class QuizActivity extends AppCompatActivity {
             chosen.add(position);
 
             QuizProblem problem = quizProblems.get(position);
+            quizproblemlength = quizProblems.size();
             String answer = problem.getRightAnswer();
             int rightAnswer = -1;
             for (int j = 0; j < countries.length; j++) {
@@ -130,7 +133,7 @@ public class QuizActivity extends AppCompatActivity {
         TextView questionTextView = (TextView) findViewById(R.id.question);
         TextView nameTextView = (TextView) findViewById(R.id.name);
         nameTextView.setText(actualProblems[problemCounter].getName());
-        if (actualProblems.length < 10) {
+        if (quizproblemlength < 10) {
             String message = "Not enough friends to play... (at least 10)";
             nameTextView.setText(message);
             return;
@@ -183,7 +186,7 @@ public class QuizActivity extends AppCompatActivity {
                 City city = (City) parent.getItemAtPosition(position) ;
 
                 String name = city.getName();
-                QuizProblem problem = actualProblems[problemCounter];
+                QuizProblem problem = actualProblems[problemCounter-1];
                 if (problem.getRightAnswer().equals(name)) {
                     score++;
                     problem.setCorrect(true);
@@ -195,7 +198,13 @@ public class QuizActivity extends AppCompatActivity {
                 problem.setSelectedAnswer(name);
 
                 if (problemCounter == 10) {
-
+                    Intent i = new Intent(QuizActivity.this, MainResultActivity.class);
+                    for (int j = 0; j<10; j++) {
+                        i.putExtra("problem"+(j+1)+"correct", actualProblems[j].getCorrect());
+                        i.putExtra("problem"+(j+1)+"sel", actualProblems[j].getSelectedAnswer());
+                        i.putExtra("problem"+(j+1)+"right", actualProblems[j].getRightAnswer());
+                    }
+                    startActivity(i);
                 }
                 else{
                     showQuiz();
@@ -203,6 +212,4 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

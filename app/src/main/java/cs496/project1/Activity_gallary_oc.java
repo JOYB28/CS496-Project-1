@@ -23,7 +23,7 @@ public class Activity_gallary_oc extends Activity {
         gridView = (GridView) findViewById(R.id.gridview);
         gridView.setAdapter(citiesAdapter);
 
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.austrailia), "Australia");
+        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.australia), "Australia");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.fiji), "Fiji");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.newzealand), "Newzealand");
 

@@ -167,6 +167,7 @@ public class Activity_2 extends AppCompatActivity {
                             addressCursor.moveToNext();
                             address = addressCursor.getString(addressCursor.getColumnIndex(ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS));
                         }
+                        addressCursor.close();
 
                         if(numbers.size() > 1 && types.get(0) > types.get(1)) {
                             Collections.swap(numbers, 0, 1);
