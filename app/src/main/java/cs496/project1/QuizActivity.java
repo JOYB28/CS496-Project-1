@@ -203,6 +203,7 @@ public class QuizActivity extends AppCompatActivity {
                         i.putExtra("problem"+(j+1)+"correct", actualProblems[j].getCorrect());
                         i.putExtra("problem"+(j+1)+"sel", actualProblems[j].getSelectedAnswer());
                         i.putExtra("problem"+(j+1)+"right", actualProblems[j].getRightAnswer());
+                        i.putExtra("problem"+(j+1)+"name", actualProblems[j].getName());
                     }
                     startActivity(i);
                 }

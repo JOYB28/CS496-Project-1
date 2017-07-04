@@ -19,6 +19,7 @@ public class MainResultActivity extends AppCompatActivity {
         listview2 = (ListView) findViewById(R.id.listview2);
         ListView2Adapter adapter2 = new ListView2Adapter();
         listview2.setAdapter(adapter2);
+
         Drawable d;
 
         for (int i = 0; i<10; i++) {
@@ -28,7 +29,7 @@ public class MainResultActivity extends AppCompatActivity {
             else {
                 d = ContextCompat.getDrawable(this, R.drawable.wrong);
             }
-            adapter2.addItem(d, Integer.toString(i+1), extras.getString("problem"+(i+1)+"sel"), extras.getString("problem"+(i+1)+"right"));
+            adapter2.addItem(d, extras.getString("problem "+(i+1)+ "name"), Integer.toString(i+1), extras.getString("problem"+(i+1)+"sel"), extras.getString("problem"+(i+1)+"right"));
         }
 
     }
