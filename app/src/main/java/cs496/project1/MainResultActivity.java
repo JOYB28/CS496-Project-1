@@ -17,6 +17,7 @@ public class MainResultActivity extends AppCompatActivity {
         ListView2Adapter adapter2 = new ListView2Adapter();
         listview2.setAdapter(adapter2);
 
+
         adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "1","이름", "너가 쓴거", "정답");
         adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.right), "2","이름", "너가 쓴거", "정답");
         adapter2.addItem(ContextCompat.getDrawable(this, R.drawable.wrong), "3","이름", "너가 쓴거", "정답");
