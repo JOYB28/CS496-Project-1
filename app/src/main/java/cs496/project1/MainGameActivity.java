@@ -23,7 +23,7 @@ public class MainGameActivity extends AppCompatActivity {
         gridView.setAdapter(citiesAdapter);
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.algeria), "Algeria");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.france), "France");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.south_korea), "South Korea");
+        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.southkorea), "South Korea");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.bolivia), "Bolivia");
 
 

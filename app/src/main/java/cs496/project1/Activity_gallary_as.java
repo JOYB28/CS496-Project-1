@@ -28,7 +28,7 @@ public class Activity_gallary_as extends Activity {
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.hongkong), "Hong Kong");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.japan), "Japan");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.russia), "Russia");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.south_korea), "South Korea");
+        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.southkorea), "South Korea");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.thailand), "Thailand");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.turkey), "Turkey");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.uae), "UAE");

@@ -28,7 +28,7 @@ public class Activity_gallary_eu extends Activity {
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.greece), "Greece");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.italy), "Italy");
         citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.netherlands), "Netherlands");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.uk), "United Kingdom");
+        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.unitedkingdom), "United Kingdom");
 
 
 

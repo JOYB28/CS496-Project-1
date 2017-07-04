@@ -46,51 +46,8 @@ public class Activity_2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
 
-        /*Button button1 = (Button) findViewById(R.id.button);
-
-        button1.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent = new Intent(Activity_2.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });*/
-
-//////
-        /*
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, LIST_MENU);
-
-        ListView listview = (ListView) findViewById(R.id.listview1);
-        listview.setAdapter(adapter);
-        */
-
-/////
         //contacts
         showContacts();
-
-        //gridView  해보기
-        //setContentView(R.layout.layout_tab_1);
-
-/*
-        GridView gridView;
-        CityAdapter citiesAdapter;
-
-        citiesAdapter = new CityAdapter();     // this.cities
-
-        gridView = (GridView) findViewById(R.id.gridview);
-        gridView.setAdapter(citiesAdapter);
-
-
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.amsterdam), "AMSTERDAM");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.beijing), "BEIJING");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.istanbul), "ISTANBUL");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.london), "LONDON");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.newyork), "NEW YORK");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.paris), "PARIS");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.praha), "PRAHA");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.rome), "ROME");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.seoul), "SEOUL");
-        citiesAdapter.addItem(ContextCompat.getDrawable(this, R.drawable.tokyo), "TOKYO");
-*/
 
         //tab 구현
         TabHost tabHost1 = (TabHost) findViewById(R.id.tabHost1);
@@ -130,7 +87,7 @@ public class Activity_2 extends AppCompatActivity {
 
         button5.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(Activity_2.this, MainGameActivity.class);
+                Intent intent = new Intent(Activity_2.this, QuizActivity.class);
                 startActivity(intent);
             }
         });

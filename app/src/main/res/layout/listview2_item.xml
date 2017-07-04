@@ -8,10 +8,10 @@
     <ImageView
         android:adjustViewBounds="true"
         android:id="@+id/imageView1"
-        android:layout_width="102dp"
-        android:layout_height="103dp"
+        android:layout_width="71dp"
+        android:layout_height="72dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="42dp"
         android:scaleType="centerCrop"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/constraintLayout2"
@@ -25,11 +25,10 @@
         android:id="@+id/constraintLayout2"
         app:layout_constraintLeft_toRightOf="@+id/imageView1"
         android:layout_marginTop="16dp"
-        android:layout_marginLeft="55dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginRight="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteX="143dp">
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:id="@+id/textView1"
